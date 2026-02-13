@@ -686,22 +686,5 @@ class TestOverdueProcessing:
         print(f"✓ Overdue processing completed: {data['overdue_bills_processed']} bills processed")
 
 
-# Cleanup fixture
-@pytest.fixture(scope="class", autouse=True)
-def cleanup_test_schemes(manager_client, society_id):
-    """Cleanup TEST_ prefixed discount schemes after tests"""
-    yield
-    # Cleanup
-    try:
-        schemes_response = manager_client.get(f"{BASE_URL}/api/societies/{society_id}/maintenance/discount-schemes")
-        if schemes_response.status_code == 200:
-            schemes = schemes_response.json()
-            for scheme in schemes:
-                if scheme["scheme_name"].startswith("TEST_"):
-                    manager_client.delete(f"{BASE_URL}/api/societies/{society_id}/maintenance/discount-schemes/{scheme['id']}")
-    except:
-        pass
-
-
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])
