@@ -183,6 +183,7 @@ class AppDrawer extends ConsumerWidget {
         {'icon': Icons.check_circle_outline, 'label': 'Approvals', 'route': AppRoutes.approvals},
         {'icon': Icons.bar_chart_rounded, 'label': 'Reports', 'route': AppRoutes.reports},
         {'icon': Icons.people_outline, 'label': 'Members', 'route': AppRoutes.members},
+        {'icon': Icons.settings_outlined, 'label': 'Settings', 'route': AppRoutes.settings},
       ]);
     } else if (role == 'committee') {
       base.addAll([
