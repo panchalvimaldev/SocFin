@@ -7,14 +7,18 @@ import { SocietyProvider, useSociety } from "@/contexts/SocietyContext";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import SocietySwitch from "@/pages/SocietySwitch";
+import CreateSociety from "@/pages/CreateSociety";
 import Dashboard from "@/pages/Dashboard";
 import Transactions from "@/pages/Transactions";
 import AddTransaction from "@/pages/AddTransaction";
 import Maintenance from "@/pages/Maintenance";
+import FlatLedger from "@/pages/FlatLedger";
 import Approvals from "@/pages/Approvals";
 import Reports from "@/pages/Reports";
 import Notifications from "@/pages/Notifications";
 import Members from "@/pages/Members";
+import FlatMembers from "@/pages/FlatMembers";
+import SocietySettings from "@/pages/SocietySettings";
 import Layout from "@/components/Layout";
 
 function ProtectedRoute({ children }) {
