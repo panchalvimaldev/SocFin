@@ -13,7 +13,7 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
-import { Receipt, PlusCircle, IndianRupee, Loader2, CheckCircle2 } from "lucide-react";
+import { Receipt, PlusCircle, IndianRupee, Loader2, CheckCircle2, FileText } from "lucide-react";
 import { toast } from "sonner";
 
 const statusColors = {
