@@ -77,17 +77,25 @@ Build a production-ready scalable society finance SaaS product supporting multip
   - All 11 screens: Login, Register, Society Switch, Dashboard, Transactions, Add Transaction, Maintenance, Approvals, Reports, Notifications, Members
   - Midnight Ledger dark theme, fl_chart charts, role-based navigation drawer
 
+### P0.6 (Done - Feb 2026) - 4 New Features
+- [x] **Society Creation** - Users can create new societies from Society Switch page
+  - Web: CreateSociety.js with form validation
+  - Flutter: create_society_screen.dart with Riverpod
+  - Backend: POST /api/societies/ (creator becomes manager)
+- [x] **Society Settings** - Managers can edit society configuration
+  - Web: Settings.js page with editable form
+  - Flutter: society_settings_screen.dart 
+  - Backend: PUT /api/societies/{id} (manager-only)
+- [x] **Member Assignment to Flats** - Link members to flats with relationship types
+  - Web: FlatMembers.js page with flat selection and member linking
+  - Flutter: Updated members_screen.dart with flat navigation
+  - Backend: GET/POST/DELETE /api/societies/{id}/flats/{flat_id}/members
+- [x] **Flat Ledger View** - Detailed payment history per flat
+  - Web: FlatLedger.js showing billing history, paid/due amounts
+  - Flutter: flat_ledger_screen.dart with summary cards
+  - Backend: GET /api/societies/{id}/maintenance/ledger/{flat_id}
+
 ### P1 (Next)
 - [ ] Invoice/receipt file upload attached to transactions
-- [ ] Push notifications (Firebase integration)
-- [ ] Member ledger detail view
-- [ ] Flat-member assignment UI
-- [ ] Society creation from UI
-
-### P2 (Later)
-- [ ] Advanced search across transactions
-- [ ] Bulk bill generation with variable amounts
-- [ ] Email notifications for dues
-- [ ] Audit trail / activity log
-- [ ] Society settings page
-- [ ] Multi-tenant whitelabeling
+- [ ] Push notifications (Firebase integration - credentials required)
+- [ ] PDF/Excel report export verification
