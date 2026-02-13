@@ -45,14 +45,20 @@ function AppRoutes() {
       <Route path="/switch-society" element={
         <ProtectedRoute><SocietySwitch /></ProtectedRoute>
       } />
+      <Route path="/create-society" element={
+        <ProtectedRoute><CreateSociety /></ProtectedRoute>
+      } />
       <Route path="/" element={<SocietyRoute><Dashboard /></SocietyRoute>} />
       <Route path="/transactions" element={<SocietyRoute><Transactions /></SocietyRoute>} />
       <Route path="/transactions/add" element={<SocietyRoute><AddTransaction /></SocietyRoute>} />
       <Route path="/maintenance" element={<SocietyRoute><Maintenance /></SocietyRoute>} />
+      <Route path="/maintenance/ledger/:flatId" element={<SocietyRoute><FlatLedger /></SocietyRoute>} />
       <Route path="/approvals" element={<SocietyRoute><Approvals /></SocietyRoute>} />
       <Route path="/reports" element={<SocietyRoute><Reports /></SocietyRoute>} />
       <Route path="/notifications" element={<SocietyRoute><Notifications /></SocietyRoute>} />
       <Route path="/members" element={<SocietyRoute><Members /></SocietyRoute>} />
+      <Route path="/flat-members" element={<SocietyRoute><FlatMembers /></SocietyRoute>} />
+      <Route path="/settings" element={<SocietyRoute><SocietySettings /></SocietyRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
