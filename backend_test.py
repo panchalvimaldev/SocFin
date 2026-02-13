@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 class SocietyFinanceAPITester:
-    def __init__(self, base_url="https://community-accounting.preview.emergentagent.com"):
+    def __init__(self, base_url="https://flatsfinance.preview.emergentagent.com"):
         self.base_url = base_url.rstrip('/')
         self.token = None
         self.user_info = None

@@ -3,7 +3,7 @@
 /// ═══════════════════════════════════════════════════════════
 class ApiConfig {
   static const String baseUrl =
-      'https://community-accounting.preview.emergentagent.com/api';
+      'https://flatsfinance.preview.emergentagent.com/api';
 
   // ── Auth ──────────────────────────────────────────────────
   static const String login = '$baseUrl/auth/login';
