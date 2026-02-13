@@ -229,6 +229,16 @@ async def add_flat_member(society_id: str, flat_id: str, data: FlatMemberCreate,
     )
 
 
+@router.delete("/{society_id}/flats/{flat_id}/members/{fm_id}")
+async def remove_flat_member(society_id: str, flat_id: str, fm_id: str,
+                             current_user: dict = Depends(get_current_user)):
+    await verify_membership(current_user["sub"], society_id, ["manager"])
+    result = await db.flat_members.delete_one({"id": fm_id, "society_id": society_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Flat member not found")
+    return {"status": "removed"}
+
+
 # ─── Dashboard ───────────────────────────────────────
 @router.get("/{society_id}/dashboard", response_model=DashboardData)
 async def get_dashboard(society_id: str, current_user: dict = Depends(get_current_user)):
