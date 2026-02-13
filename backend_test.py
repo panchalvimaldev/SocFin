@@ -112,10 +112,26 @@ class SocietyFinanceAPITester:
             description="List user societies"
         )
         if success and isinstance(response, list) and len(response) > 0:
-            # Get the first society (should be Sunrise Apartments for vikram)
-            self.society_id = response[0]['id']
-            self.log(f"Selected society: {response[0]['name']} (Role: {response[0]['role']})")
-            return True
+            self.log(f"Found {len(response)} societies:")
+            for soc in response:
+                self.log(f"  - {soc['name']} (Role: {soc['role']})")
+            
+            # Look for Sunrise Apartments where vikram should be manager
+            manager_society = None
+            for soc in response:
+                if soc['role'] == 'manager':
+                    manager_society = soc
+                    break
+            
+            if manager_society:
+                self.society_id = manager_society['id']
+                self.log(f"Selected society: {manager_society['name']} (Role: {manager_society['role']})")
+                return True
+            else:
+                # Fallback to first society
+                self.society_id = response[0]['id']
+                self.log(f"No manager role found, using: {response[0]['name']} (Role: {response[0]['role']})")
+                return True
         return False
 
     def test_society_dashboard(self):
