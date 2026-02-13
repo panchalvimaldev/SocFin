@@ -179,7 +179,11 @@ class AppDrawer extends ConsumerWidget {
     if (role == 'manager') {
       base.addAll([
         {'icon': Icons.add_circle_outline, 'label': 'Add Transaction', 'route': AppRoutes.addTransaction},
-        {'icon': Icons.receipt_long_rounded, 'label': 'Maintenance', 'route': AppRoutes.maintenance},
+        {'icon': Icons.receipt_long_rounded, 'label': 'Maintenance Bills', 'route': AppRoutes.maintenance},
+        {'icon': Icons.calculate_outlined, 'label': 'Generate Bills', 'route': AppRoutes.generateBills},
+        {'icon': Icons.credit_card_outlined, 'label': 'Record Payment', 'route': AppRoutes.paymentEntry},
+        {'icon': Icons.account_balance_wallet_outlined, 'label': 'Collection', 'route': AppRoutes.collectionDashboard},
+        {'icon': Icons.tune_outlined, 'label': 'Maint. Settings', 'route': AppRoutes.maintenanceSettings},
         {'icon': Icons.check_circle_outline, 'label': 'Approvals', 'route': AppRoutes.approvals},
         {'icon': Icons.bar_chart_rounded, 'label': 'Reports', 'route': AppRoutes.reports},
         {'icon': Icons.people_outline, 'label': 'Members', 'route': AppRoutes.members},
@@ -187,17 +191,19 @@ class AppDrawer extends ConsumerWidget {
       ]);
     } else if (role == 'committee') {
       base.addAll([
+        {'icon': Icons.account_balance_wallet_outlined, 'label': 'Collection', 'route': AppRoutes.collectionDashboard},
         {'icon': Icons.check_circle_outline, 'label': 'Approvals', 'route': AppRoutes.approvals},
         {'icon': Icons.bar_chart_rounded, 'label': 'Reports', 'route': AppRoutes.reports},
       ]);
     } else if (role == 'auditor') {
       base.addAll([
         {'icon': Icons.receipt_long_rounded, 'label': 'Maintenance', 'route': AppRoutes.maintenance},
+        {'icon': Icons.account_balance_wallet_outlined, 'label': 'Collection', 'route': AppRoutes.collectionDashboard},
         {'icon': Icons.bar_chart_rounded, 'label': 'Reports', 'route': AppRoutes.reports},
       ]);
     } else {
       base.addAll([
-        {'icon': Icons.receipt_long_rounded, 'label': 'My Bills', 'route': AppRoutes.maintenance},
+        {'icon': Icons.receipt_long_rounded, 'label': 'My Bills', 'route': AppRoutes.myBills},
         {'icon': Icons.bar_chart_rounded, 'label': 'Reports', 'route': AppRoutes.reports},
       ]);
     }
