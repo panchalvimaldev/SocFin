@@ -1,0 +1,157 @@
+{
+  "identity": {
+    "designer": "E1: The Anti-AI Designer",
+    "mission": "Create a distinctive, professional financial tool that breaks the 'generic SaaS' mold using density, depth, and intentional asymmetry.",
+    "theme_strategy": "Professional Fintech Dark Mode (Archetype 7 mixed with Swiss Logic)"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Manrope, sans-serif",
+      "body": "Inter, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+      "h3": "text-2xl font-medium",
+      "body_lg": "text-lg leading-relaxed",
+      "body": "text-base leading-relaxed text-muted-foreground",
+      "caption": "text-sm text-muted-foreground tracking-wide uppercase"
+    },
+    "rules": [
+      "Use 'Manrope' for all headings to give a modern, geometric, yet human feel.",
+      "Use 'JetBrains Mono' for all financial figures, transaction IDs, and tabular data for perfect alignment.",
+      "Headings > 32px must use 'tracking-tight'.",
+      "Overlines/Labels must be Uppercase + Tiny + Wide Spacing (tracking-[0.2em])."
+    ]
+  },
+  "colors": {
+    "palette_name": "Midnight Ledger",
+    "background": {
+      "default": "#0B0C10",
+      "card": "#15171E",
+      "subtle": "#1F2937"
+    },
+    "primary": {
+      "default": "#3B82F6",
+      "hover": "#2563EB",
+      "foreground": "#FFFFFF"
+    },
+    "accents": {
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "danger": "#EF4444",
+      "info": "#0EA5E9"
+    },
+    "borders": {
+      "default": "rgba(255, 255, 255, 0.08)",
+      "active": "rgba(59, 130, 246, 0.4)"
+    },
+    "text": {
+      "primary": "#F8FAFC",
+      "secondary": "#94A3B8",
+      "tertiary": "#64748B"
+    },
+    "rules": [
+      "NEVER use pure black (#000000). Use #0B0C10 for depth.",
+      "Gradients are allowed ONLY as subtle glows or 'tracing beams', never for full backgrounds.",
+      "Glassmorphism: Use bg-black/40 with backdrop-blur-xl for sticky headers and modals.",
+      "Borders: All cards must have a 1px border of white/10 (border-white/10)."
+    ]
+  },
+  "layout_strategy": {
+    "grid_system": "The Bento Grid (Mode B for Dashboard)",
+    "container": "max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing": {
+      "section_gap": "gap-8",
+      "card_gap": "gap-4",
+      "internal_padding": "p-6"
+    },
+    "modes": [
+      {
+        "name": "Dashboard Grid",
+        "css_classes": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4",
+        "usage": "Main dashboards. Use col-span-2 or col-span-3 for main charts."
+      },
+      {
+        "name": "Detail View",
+        "css_classes": "grid grid-cols-1 lg:grid-cols-12 gap-8",
+        "usage": "Transaction details, flat management."
+      }
+    ]
+  },
+  "components": {
+    "cards": {
+      "style": "Flat, sharp or minimal radius (rounded-md), dark grey bg (#15171E), 1px border (#2D3748).",
+      "hover": "hover:border-primary/50 transition-colors duration-300"
+    },
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:bg-primary/90 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all",
+      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      "ghost": "hover:bg-accent hover:text-accent-foreground"
+    },
+    "inputs": {
+      "style": "bg-transparent border-input focus:border-primary focus:ring-1 focus:ring-primary/50 rounded-md"
+    },
+    "tables": {
+      "style": "compact, row-hover effects, sticky header, mono-font for numbers."
+    },
+    "modals": {
+      "style": "glassmorphism overlay (bg-black/80 backdrop-blur-sm), distinct border."
+    },
+    "navigation": {
+      "sidebar": "Fixed left, thin border-r border-border/40, bg-background/95 backdrop-blur.",
+      "topbar": "Sticky top, glassmorphism, z-50."
+    }
+  },
+  "visual_enhancers": {
+    "textures": "Add a subtle noise texture overlay (opacity-5) to the main background to reduce digital sterility.",
+    "shadows": {
+      "card": "shadow-lg shadow-black/40",
+      "glow": "shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
+    },
+    "animations": {
+      "page_transition": "animate-in fade-in slide-in-from-bottom-4 duration-500",
+      "hover_lift": "hover:-translate-y-1 transition-transform duration-200"
+    }
+  },
+  "image_urls": {
+    "login_background": {
+      "url": "https://images.unsplash.com/photo-1758637612717-e0cd7dc3cdea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGdlb21ldHJpYyUyMHRlY2hub2xvZ3klMjBiYWNrZ3JvdW5kJTIwZGFyayUyMGJsdWV8ZW58MHx8fHwxNzcwOTY3MDk3fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract blue geometric shapes with glowing edges",
+      "usage": "Full screen background for Login/Register pages with overlay."
+    },
+    "society_hero": {
+      "url": "https://images.unsplash.com/photo-1758448501006-42ef007449ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBhcmNoaXRlY3R1cmUlMjBuaWdodHxlbnwwfHx8fDE3NzA5NjcwOTd8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern apartment buildings at night",
+      "usage": "Society Switcher card backgrounds or Dashboard welcome banner."
+    },
+    "team_placeholders": [
+      "https://images.unsplash.com/photo-1531339413195-cc6c17163974?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBpbmRpYW4lMjBkaXZlcnNlJTIwdGVhbSUyMHBvcnRyYWl0c3xlbnwwfHx8fDE3NzA5NjcwOTh8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1734519654307-ceb306e4073a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBpbmRpYW4lMjBkaXZlcnNlJTIwdGVhbSUyMHBvcnRyYWl0c3xlbnwwfHx8fDE3NzA5NjcwOTh8MA&ixlib=rb-4.1.0&q=85"
+    ]
+  },
+  "implementation_instructions": {
+    "framework": "React (Create React App structure)",
+    "file_extension": ".js / .jsx",
+    "styling": "Tailwind CSS + inline styles for dynamic values",
+    "icons": "lucide-react (default), @heroicons/react (secondary)",
+    "charts": "recharts (via shadcn/ui charts if available, or raw recharts)",
+    "steps": [
+      "1. Setup Tailwind config with the 'Midnight Ledger' palette.",
+      "2. Install/Update Shadcn components to match the 'Cards' and 'Inputs' styles defined above.",
+      "3. Create the 'Layout' component with Sidebar and Navbar using the glassmorphism rules.",
+      "4. Build the 'Dashboard' using the Bento Grid system.",
+      "5. Implement 'Transactions' and 'Reports' using dense tables and recharts.",
+      "6. Ensure all interactive elements have 'data-testid' attributes."
+    ]
+  },
+  "universal_guidelines": [
+    "Avoid 'AI Slop': Do not use generic gradients or center-aligned layouts everywhere.",
+    "Dark Mode First: Design for dark mode primarily. Ensure text contrast is > 4.5:1.",
+    "Density: This is a financial app. Don't waste space. Use compact tables and grids.",
+    "Feedback: Every action needs a toast (Sonner) or visual state change.",
+    "No Emojis: Use professional icons (Lucide/Heroicons) only.",
+    "Data-Test-ID: MANDATORY for all buttons, inputs, and links."
+  ]
+}
