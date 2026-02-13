@@ -1,53 +1,69 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { SocietyProvider, useSociety } from "@/contexts/SocietyContext";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import SocietySwitch from "@/pages/SocietySwitch";
+import Dashboard from "@/pages/Dashboard";
+import Transactions from "@/pages/Transactions";
+import AddTransaction from "@/pages/AddTransaction";
+import Maintenance from "@/pages/Maintenance";
+import Approvals from "@/pages/Approvals";
+import Reports from "@/pages/Reports";
+import Notifications from "@/pages/Notifications";
+import Members from "@/pages/Members";
+import Layout from "@/components/Layout";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+function ProtectedRoute({ children }) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return children;
+}
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+function SocietyRoute({ children }) {
+  const { isAuthenticated } = useAuth();
+  const { currentSociety } = useSociety();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (!currentSociety) return <Navigate to="/switch-society" replace />;
+  return <Layout>{children}</Layout>;
+}
+
+function AppRoutes() {
+  const { isAuthenticated } = useAuth();
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/login" element={isAuthenticated ? <Navigate to="/switch-society" /> : <Login />} />
+      <Route path="/register" element={isAuthenticated ? <Navigate to="/switch-society" /> : <Register />} />
+      <Route path="/switch-society" element={
+        <ProtectedRoute><SocietySwitch /></ProtectedRoute>
+      } />
+      <Route path="/" element={<SocietyRoute><Dashboard /></SocietyRoute>} />
+      <Route path="/transactions" element={<SocietyRoute><Transactions /></SocietyRoute>} />
+      <Route path="/transactions/add" element={<SocietyRoute><AddTransaction /></SocietyRoute>} />
+      <Route path="/maintenance" element={<SocietyRoute><Maintenance /></SocietyRoute>} />
+      <Route path="/approvals" element={<SocietyRoute><Approvals /></SocietyRoute>} />
+      <Route path="/reports" element={<SocietyRoute><Reports /></SocietyRoute>} />
+      <Route path="/notifications" element={<SocietyRoute><Notifications /></SocietyRoute>} />
+      <Route path="/members" element={<SocietyRoute><Members /></SocietyRoute>} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
-};
+}
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <SocietyProvider>
+          <AppRoutes />
+          <Toaster position="top-right" richColors />
+        </SocietyProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
