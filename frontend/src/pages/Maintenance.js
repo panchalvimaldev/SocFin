@@ -25,6 +25,7 @@ const statusColors = {
 
 export default function Maintenance() {
   const { currentSociety, isManager } = useSociety();
+  const navigate = useNavigate();
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [genOpen, setGenOpen] = useState(false);
