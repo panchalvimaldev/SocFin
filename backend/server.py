@@ -72,7 +72,9 @@ async def root():
 async def seed_demo_data():
     # Clear existing data
     for col in ["users", "societies", "memberships", "flats", "flat_members",
-                "transactions", "maintenance_bills", "approvals", "notifications"]:
+                "transactions", "maintenance_bills", "maintenance_bills_v2", 
+                "maintenance_settings", "discount_schemes", "maintenance_payments",
+                "member_ledger", "approvals", "notifications"]:
         await db[col].delete_many({})
 
     now = datetime.now(timezone.utc)
