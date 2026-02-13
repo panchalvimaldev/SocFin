@@ -94,6 +94,14 @@ export default function SocietySwitch() {
                 </CardContent>
               </Card>
             ))}
+
+            <Button
+              variant="outline" className="w-full mt-4 border-dashed border-white/[0.12] hover:border-primary/40 h-14"
+              onClick={() => navigate("/create-society")}
+              data-testid="create-new-society-btn"
+            >
+              <Plus className="w-5 h-5 mr-2" /> Create New Society
+            </Button>
           </div>
         )}
       </div>
