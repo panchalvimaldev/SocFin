@@ -277,6 +277,179 @@ async def seed_demo_data():
     if bills:
         await db.maintenance_bills.insert_many(bills)
 
+    # ─── Maintenance Settings (New V2) ────────────────
+    maintenance_settings = [
+        {
+            "id": str(uuid.uuid4()),
+            "society_id": soc1_id,
+            "default_rate_per_sqft": 5.0,
+            "billing_cycle": "monthly",
+            "due_date_day": 10,
+            "late_fee_amount": 500,
+            "late_fee_type": "flat",
+            "is_discount_scheme_enabled": True,
+            "updated_at": now.isoformat(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "society_id": soc2_id,
+            "default_rate_per_sqft": 4.5,
+            "billing_cycle": "monthly",
+            "due_date_day": 15,
+            "late_fee_amount": 2,
+            "late_fee_type": "percentage",
+            "is_discount_scheme_enabled": True,
+            "updated_at": now.isoformat(),
+        },
+    ]
+    await db.maintenance_settings.insert_many(maintenance_settings)
+
+    # ─── Discount Schemes ─────────────────────────────
+    discount_scheme_1_id = str(uuid.uuid4())
+    discount_scheme_2_id = str(uuid.uuid4())
+    discount_schemes = [
+        {
+            "id": discount_scheme_1_id,
+            "society_id": soc1_id,
+            "scheme_name": "Pay 12 Get 1 Free",
+            "eligible_months": 12,
+            "free_months": 1,
+            "discount_type": "free_months",
+            "discount_value": 0,
+            "is_active": True,
+            "created_at": now.isoformat(),
+        },
+        {
+            "id": discount_scheme_2_id,
+            "society_id": soc1_id,
+            "scheme_name": "Early Bird 5%",
+            "eligible_months": 12,
+            "free_months": 0,
+            "discount_type": "percentage",
+            "discount_value": 5,
+            "is_active": True,
+            "created_at": now.isoformat(),
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "society_id": soc2_id,
+            "scheme_name": "Annual Discount",
+            "eligible_months": 12,
+            "free_months": 1,
+            "discount_type": "free_months",
+            "discount_value": 0,
+            "is_active": True,
+            "created_at": now.isoformat(),
+        },
+    ]
+    await db.discount_schemes.insert_many(discount_schemes)
+
+    # ─── V2 Maintenance Bills with Ledger Entries ─────
+    bills_v2 = []
+    ledger_entries = []
+    payments = []
+    
+    for idx, flat in enumerate(flats_s1[:5]):
+        primary = next((fm for fm in flat_members if fm["flat_id"] == flat["id"] and fm["is_primary"]), None)
+        area_sqft = flat.get("area_sqft", 1000)
+        rate = 5.0
+        monthly_amount = area_sqft * rate
+        
+        for m in [1, 2]:
+            bill_id = str(uuid.uuid4())
+            bill_date = datetime(2026, m, 1, tzinfo=timezone.utc)
+            due_date = datetime(2026, m, 10, tzinfo=timezone.utc)
+            
+            # First month is paid, second is pending
+            is_paid = m == 1
+            
+            bills_v2.append({
+                "id": bill_id,
+                "society_id": soc1_id,
+                "flat_id": flat["id"],
+                "flat_number": flat["flat_number"],
+                "wing": flat.get("wing", ""),
+                "primary_user_id": primary["user_id"] if primary else "",
+                "bill_period_type": "monthly",
+                "month": m,
+                "year": 2026,
+                "area_sqft": area_sqft,
+                "rate_per_sqft": rate,
+                "total_before_discount": monthly_amount,
+                "discount_applied": 0,
+                "discount_scheme_id": None,
+                "final_payable_amount": monthly_amount,
+                "late_fee": 0,
+                "due_date": due_date.strftime("%Y-%m-%d"),
+                "status": "paid" if is_paid else "pending",
+                "paid_amount": monthly_amount if is_paid else 0,
+                "created_at": bill_date.isoformat(),
+            })
+            
+            # Ledger entry for bill generation (debit)
+            ledger_id = str(uuid.uuid4())
+            ledger_entries.append({
+                "id": ledger_id,
+                "society_id": soc1_id,
+                "flat_id": flat["id"],
+                "user_id": primary["user_id"] if primary else "",
+                "entry_date": bill_date.isoformat(),
+                "entry_type": "bill_generated",
+                "reference_id": bill_id,
+                "reference_type": "bill",
+                "debit_amount": monthly_amount,
+                "credit_amount": 0,
+                "balance_after_entry": monthly_amount * m if not is_paid else monthly_amount,
+                "notes": f"Maintenance bill for {m}/2026",
+            })
+            
+            # Payment entry for paid bills
+            if is_paid:
+                payment_id = str(uuid.uuid4())
+                receipt_num = f"RCP-2026-{(idx * 2) + m:05d}"
+                payment_date = datetime(2026, m, 5, tzinfo=timezone.utc)
+                
+                payments.append({
+                    "id": payment_id,
+                    "society_id": soc1_id,
+                    "flat_id": flat["id"],
+                    "flat_number": flat["flat_number"],
+                    "bill_ids": [bill_id],
+                    "paid_by_user_id": primary["user_id"] if primary else "",
+                    "amount_paid": monthly_amount,
+                    "discount_applied": 0,
+                    "payment_mode": random.choice(["upi", "bank", "cash"]),
+                    "payment_date": payment_date.strftime("%Y-%m-%d"),
+                    "receipt_number": receipt_num,
+                    "transaction_reference": f"TXN{random.randint(100000, 999999)}",
+                    "remarks": "",
+                    "created_at": payment_date.isoformat(),
+                    "created_by": users[0]["id"],
+                })
+                
+                # Ledger entry for payment (credit)
+                ledger_entries.append({
+                    "id": str(uuid.uuid4()),
+                    "society_id": soc1_id,
+                    "flat_id": flat["id"],
+                    "user_id": primary["user_id"] if primary else "",
+                    "entry_date": payment_date.isoformat(),
+                    "entry_type": "payment_received",
+                    "reference_id": payment_id,
+                    "reference_type": "payment",
+                    "debit_amount": 0,
+                    "credit_amount": monthly_amount,
+                    "balance_after_entry": 0,
+                    "notes": f"Payment via {payments[-1]['payment_mode']} - {receipt_num}",
+                })
+    
+    if bills_v2:
+        await db.maintenance_bills_v2.insert_many(bills_v2)
+    if ledger_entries:
+        await db.member_ledger.insert_many(ledger_entries)
+    if payments:
+        await db.maintenance_payments.insert_many(payments)
+
     # ─── Notifications ───────────────────────────────
     notifications = [
         {"id": str(uuid.uuid4()), "society_id": soc1_id, "user_id": users[0]["id"],
