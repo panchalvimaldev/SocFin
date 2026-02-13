@@ -191,15 +191,24 @@ export default function Maintenance() {
                       </td>
                       {isManager && (
                         <td className="px-4 py-3 text-center">
-                          {bill.status !== "paid" && (
+                          <div className="flex items-center justify-center gap-1">
+                            {bill.status !== "paid" && (
+                              <Button
+                                variant="ghost" size="sm" className="text-xs text-primary h-7"
+                                onClick={() => { setSelectedBill(bill); setPayForm({ amount_paid: String(bill.amount - (bill.paid_amount || 0)), payment_mode: "bank" }); setPayOpen(true); }}
+                                data-testid={`pay-btn-${bill.id}`}
+                              >
+                                <IndianRupee className="w-3 h-3 mr-1" /> Pay
+                              </Button>
+                            )}
                             <Button
-                              variant="ghost" size="sm" className="text-xs text-primary h-7"
-                              onClick={() => { setSelectedBill(bill); setPayForm({ amount_paid: String(bill.amount - (bill.paid_amount || 0)), payment_mode: "bank" }); setPayOpen(true); }}
-                              data-testid={`pay-btn-${bill.id}`}
+                              variant="ghost" size="sm" className="text-xs text-muted-foreground h-7"
+                              onClick={() => navigate(`/maintenance/ledger/${bill.flat_id}`)}
+                              data-testid={`ledger-btn-${bill.id}`}
                             >
-                              <IndianRupee className="w-3 h-3 mr-1" /> Record Pay
+                              <FileText className="w-3 h-3 mr-1" /> Ledger
                             </Button>
-                          )}
+                          </div>
                         </td>
                       )}
                     </tr>
