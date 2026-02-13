@@ -71,6 +71,12 @@ Build a production-ready scalable society finance SaaS product supporting multip
 - [x] Notifications
 - [x] Member management
 
+### P0.5 (Done - Feb 2026)
+- [x] Flutter Mobile App (Riverpod) - Complete codebase at /app/flutter_app/
+  - 37 files, clean architecture, Riverpod state management
+  - All 11 screens: Login, Register, Society Switch, Dashboard, Transactions, Add Transaction, Maintenance, Approvals, Reports, Notifications, Members
+  - Midnight Ledger dark theme, fl_chart charts, role-based navigation drawer
+
 ### P1 (Next)
 - [ ] Invoice/receipt file upload attached to transactions
 - [ ] Push notifications (Firebase integration)
