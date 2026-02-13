@@ -37,6 +37,14 @@ class SocietyCreate(BaseModel):
     approval_threshold: float = 50000
 
 
+class SocietyUpdate(BaseModel):
+    name: Optional[str] = None
+    address: Optional[str] = None
+    total_flats: Optional[int] = None
+    description: Optional[str] = None
+    approval_threshold: Optional[float] = None
+
+
 class SocietyResponse(BaseModel):
     id: str
     name: str
