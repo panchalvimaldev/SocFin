@@ -515,7 +515,7 @@ class TestReports:
         societies = list_response.json()
         sunrise = next(s for s in societies if s["name"] == "Sunrise Apartments")
         
-        response = manager_client.get(f"{BASE_URL}/api/societies/{sunrise['id']}/reports/monthly?year=2026&month=1")
+        response = manager_client.get(f"{BASE_URL}/api/societies/{sunrise['id']}/reports/monthly-summary?year=2026")
         assert response.status_code == 200
         data = response.json()
         assert "total_inward" in data
