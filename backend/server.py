@@ -476,6 +476,12 @@ async def seed_demo_data():
     await db.flat_members.create_index([("flat_id", 1), ("society_id", 1)])
     await db.transactions.create_index([("society_id", 1), ("created_at", -1)])
     await db.maintenance_bills.create_index([("society_id", 1), ("month", 1), ("year", 1)])
+    await db.maintenance_bills_v2.create_index([("society_id", 1), ("year", 1), ("month", 1)])
+    await db.maintenance_bills_v2.create_index([("society_id", 1), ("flat_id", 1)])
+    await db.maintenance_settings.create_index([("society_id", 1)], unique=True)
+    await db.discount_schemes.create_index([("society_id", 1)])
+    await db.maintenance_payments.create_index([("society_id", 1), ("created_at", -1)])
+    await db.member_ledger.create_index([("society_id", 1), ("flat_id", 1), ("entry_date", -1)])
     await db.approvals.create_index([("society_id", 1), ("status", 1)])
     await db.notifications.create_index([("user_id", 1), ("read", 1)])
 
@@ -488,6 +494,11 @@ async def seed_demo_data():
             "flats": len(flats_s1) + len(flats_s2),
             "transactions": len(transactions),
             "bills": len(bills),
+            "bills_v2": len(bills_v2),
+            "maintenance_settings": len(maintenance_settings),
+            "discount_schemes": len(discount_schemes),
+            "payments": len(payments),
+            "ledger_entries": len(ledger_entries),
             "demo_credentials": [
                 {"email": "vikram@demo.com", "password": "password123", "roles": "Manager(Sunrise), Member(Green Valley)"},
                 {"email": "priya@demo.com", "password": "password123", "roles": "Member(Sunrise), Manager(Green Valley)"},
