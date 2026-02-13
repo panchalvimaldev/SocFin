@@ -95,14 +95,79 @@ Build a production-ready scalable society finance SaaS product supporting multip
   - Flutter: flat_ledger_screen.dart with summary cards
   - Backend: GET /api/societies/{id}/maintenance/ledger/{flat_id}
 
-### P1 (Next)
+### P1 (Done - Feb 2026) - Complete Maintenance Billing Module
+- [x] **Maintenance Rate Setup**
+  - Society-level rate per sqft configuration
+  - Billing cycle (monthly/quarterly/yearly)
+  - Due date configuration (day of month)
+  - Late fee (flat amount or percentage)
+  - Backend: GET/PUT /api/societies/{id}/maintenance/settings
+
+- [x] **Discount Schemes**
+  - "Pay 12 Get 1 Free" type schemes
+  - Percentage and flat discount options
+  - Activate/deactivate schemes
+  - Backend: CRUD /api/societies/{id}/maintenance/discount-schemes
+
+- [x] **Bill Generation Engine**
+  - Per sqft calculation: area × rate
+  - Monthly and yearly bill types
+  - Bill preview before generation
+  - Duplicate prevention per period
+  - Backend: POST /api/societies/{id}/maintenance/bills/generate
+
+- [x] **Member Ledger Tracking**
+  - Running balance per flat
+  - Entry types: bill_generated, payment_received, discount_applied, late_fee
+  - Debit/Credit with balance after entry
+  - Backend: GET /api/societies/{id}/maintenance/ledger/{flat_id}
+
+- [x] **Payment Recording**
+  - Monthly and annual payment support
+  - Multiple payment modes (UPI, bank, cash, cheque)
+  - Automatic receipt number generation
+  - Bill status updates (paid/partial/overdue)
+  - Backend: POST /api/societies/{id}/maintenance/payments
+
+- [x] **Receipt Generation**
+  - HTML receipt with society info, flat details, payment breakdown
+  - Download as HTML (PDF library optional)
+  - Backend: GET /api/societies/{id}/maintenance/receipts/{id}/pdf
+
+- [x] **Collection Dashboard**
+  - Paid/Pending/Overdue flats count
+  - Collection percentage
+  - Month-wise breakdown chart
+  - Recent payments list
+  - Backend: GET /api/societies/{id}/maintenance/collection-dashboard
+
+- [x] **Annual Payment Preview**
+  - Calculate discount with selected scheme
+  - Show already paid vs pending months
+  - Final payable amount
+  - Backend: POST /api/societies/{id}/maintenance/annual-payment/preview
+
+**Web Frontend (React):**
+- MaintenanceSettings.js - Rate and discount scheme configuration
+- GenerateBills.js - Bill preview and generation
+- CollectionDashboard.js - Collection statistics
+- PaymentEntry.js - Record payments with flat selection
+- MyBills.js - Member view with pending/paid/ledger/receipts tabs
+
+**Flutter Mobile:**
+- maintenance_settings_screen.dart
+- generate_bills_screen.dart
+- collection_dashboard_screen.dart
+- payment_entry_screen.dart
+- my_bills_screen.dart
+
+### P2 (Next)
 - [ ] Invoice/receipt file upload attached to transactions
 - [ ] Push notifications (Firebase integration - credentials required)
 - [ ] PDF/Excel report export verification
 
-### P2 (Later)
+### P3 (Later)
 - [ ] Advanced search across transactions
-- [ ] Bulk bill generation with variable amounts
 - [ ] Email notifications for dues
 - [ ] Audit trail / activity log
 - [ ] Multi-tenant whitelabeling
