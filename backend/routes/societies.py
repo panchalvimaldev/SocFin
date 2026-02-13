@@ -83,6 +83,27 @@ async def get_society(society_id: str, current_user: dict = Depends(get_current_
     return soc
 
 
+@router.put("/{society_id}")
+async def update_society(society_id: str, data: SocietyUpdate, current_user: dict = Depends(get_current_user)):
+    await verify_membership(current_user["sub"], society_id, ["manager"])
+    update = {}
+    if data.name is not None:
+        update["name"] = data.name
+    if data.address is not None:
+        update["address"] = data.address
+    if data.total_flats is not None:
+        update["total_flats"] = data.total_flats
+    if data.description is not None:
+        update["description"] = data.description
+    if data.approval_threshold is not None:
+        update["approval_threshold"] = data.approval_threshold
+    if not update:
+        raise HTTPException(status_code=400, detail="Nothing to update")
+    await db.societies.update_one({"id": society_id}, {"$set": update})
+    soc = await db.societies.find_one({"id": society_id}, {"_id": 0})
+    return soc
+
+
 # ─── Flats ───────────────────────────────────────────
 @router.get("/{society_id}/flats", response_model=list[FlatResponse])
 async def list_flats(society_id: str, current_user: dict = Depends(get_current_user)):
