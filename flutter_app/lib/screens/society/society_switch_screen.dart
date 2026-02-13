@@ -99,10 +99,19 @@ class _SocietySwitchScreenState extends ConsumerState<SocietySwitchScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(color: AppColors.textTertiary, fontSize: 13),
                         ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () => Navigator.pushNamed(context, AppRoutes.createSociety),
+                            icon: const Icon(Icons.add_circle_outline, size: 18),
+                            label: const Text('Create Society'),
+                          ),
+                        ),
                       ],
                     ),
                   )
-                else
+                else ...[
                   ...society.societies.asMap().entries.map((entry) {
                     final i = entry.key;
                     final s = entry.value;
@@ -116,6 +125,18 @@ class _SocietySwitchScreenState extends ConsumerState<SocietySwitchScreen> {
                       ),
                     );
                   }),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    onPressed: () => Navigator.pushNamed(context, AppRoutes.createSociety),
+                    icon: const Icon(Icons.add_circle_outline, size: 18),
+                    label: const Text('Create New Society'),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 48),
+                      foregroundColor: AppColors.primary,
+                      side: const BorderSide(color: AppColors.primary),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
