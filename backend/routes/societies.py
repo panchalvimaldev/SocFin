@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from database import db
 from auth_utils import get_current_user
 from models import (
-    SocietyCreate, SocietyResponse, SocietyWithRole,
+    SocietyCreate, SocietyResponse, SocietyWithRole, SocietyUpdate,
     FlatCreate, FlatResponse,
     MembershipCreate, MembershipResponse,
     FlatMemberCreate, FlatMemberResponse,
