@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../config/app_theme.dart';
 import '../../config/api_config.dart';
+import '../../config/routes.dart';
 import '../../providers/society_provider.dart';
 import '../../services/api_service.dart';
 import '../../widgets/navigation/app_drawer.dart';
@@ -142,39 +143,48 @@ class MembersScreen extends ConsumerWidget {
                   itemCount: flats.length,
                   itemBuilder: (_, i) {
                     final flat = flats[i];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 6),
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: AppColors.card,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.borderSubtle),
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRoutes.flatLedger,
+                        arguments: {'flatId': flat.id, 'flatNumber': flat.flatNumber},
                       ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40, height: 40,
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: AppColors.card,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.borderSubtle),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 40, height: 40,
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(Icons.home_outlined, size: 20, color: AppColors.primary),
                             ),
-                            child: const Icon(Icons.home_outlined, size: 20, color: AppColors.primary),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(flat.flatNumber,
-                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                                Text('${flat.flatType} | ${flat.wing} Wing | Floor ${flat.floor}',
-                                    style: const TextStyle(fontSize: 10, color: AppColors.textTertiary)),
-                              ],
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(flat.flatNumber,
+                                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                                  Text('${flat.flatType} | ${flat.wing} Wing | Floor ${flat.floor}',
+                                      style: const TextStyle(fontSize: 10, color: AppColors.textTertiary)),
+                                ],
+                              ),
                             ),
-                          ),
-                          Text('${flat.areaSqft.toInt()} sqft',
-                              style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 11, color: AppColors.textTertiary)),
-                        ],
+                            Text('${flat.areaSqft.toInt()} sqft',
+                                style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 11, color: AppColors.textTertiary)),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.receipt_long_outlined, size: 18, color: AppColors.textTertiary),
+                          ],
+                        ),
                       ),
                     );
                   },
