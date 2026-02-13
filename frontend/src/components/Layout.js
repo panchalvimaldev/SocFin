@@ -14,6 +14,7 @@ import {
   LayoutDashboard, ArrowLeftRight, Receipt, FileText,
   Bell, Users, Settings, LogOut, Building2, ChevronDown,
   PlusCircle, ClipboardCheck, BarChart3, Menu, X, Shield,
+  Home, UserCog,
 } from "lucide-react";
 
 const navItems = {
@@ -25,6 +26,8 @@ const navItems = {
     { label: "Approvals", icon: ClipboardCheck, path: "/approvals" },
     { label: "Reports", icon: BarChart3, path: "/reports" },
     { label: "Members", icon: Users, path: "/members" },
+    { label: "Flat Members", icon: Home, path: "/flat-members" },
+    { label: "Settings", icon: Settings, path: "/settings" },
     { label: "Notifications", icon: Bell, path: "/notifications" },
   ],
   committee: [
