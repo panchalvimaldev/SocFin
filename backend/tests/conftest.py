@@ -62,3 +62,26 @@ def member_client(api_client, member_auth):
     """Session with member auth header"""
     api_client.headers.update({"Authorization": f"Bearer {member_auth['token']}"})
     return api_client
+
+@pytest.fixture(scope="session")
+def society_id(api_client, manager_auth):
+    """Get Sunrise Apartments society ID"""
+    api_client.headers.update({"Authorization": f"Bearer {manager_auth['token']}"})
+    response = api_client.get(f"{BASE_URL}/api/societies/")
+    if response.status_code == 200:
+        societies = response.json()
+        sunrise = next((s for s in societies if s["name"] == "Sunrise Apartments"), None)
+        if sunrise:
+            return sunrise["id"]
+    pytest.skip("Could not get society ID")
+
+@pytest.fixture(scope="session")
+def flat_id(api_client, manager_auth, society_id):
+    """Get first flat ID from Sunrise Apartments"""
+    api_client.headers.update({"Authorization": f"Bearer {manager_auth['token']}"})
+    response = api_client.get(f"{BASE_URL}/api/societies/{society_id}/flats")
+    if response.status_code == 200:
+        flats = response.json()
+        if len(flats) > 0:
+            return flats[0]["id"]
+    pytest.skip("Could not get flat ID")
