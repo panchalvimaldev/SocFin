@@ -8,6 +8,11 @@ import '../screens/transactions/transactions_screen.dart';
 import '../screens/transactions/add_transaction_screen.dart';
 import '../screens/maintenance/maintenance_screen.dart';
 import '../screens/maintenance/flat_ledger_screen.dart';
+import '../screens/maintenance/maintenance_settings_screen.dart';
+import '../screens/maintenance/generate_bills_screen.dart';
+import '../screens/maintenance/collection_dashboard_screen.dart';
+import '../screens/maintenance/payment_entry_screen.dart';
+import '../screens/maintenance/my_bills_screen.dart';
 import '../screens/approvals/approvals_screen.dart';
 import '../screens/reports/reports_screen.dart';
 import '../screens/notifications/notifications_screen.dart';
@@ -24,6 +29,11 @@ class AppRoutes {
   static const String addTransaction = '/transactions/add';
   static const String maintenance = '/maintenance';
   static const String flatLedger = '/flat-ledger';
+  static const String maintenanceSettings = '/maintenance/settings';
+  static const String generateBills = '/maintenance/generate';
+  static const String collectionDashboard = '/maintenance/collection';
+  static const String paymentEntry = '/maintenance/payment';
+  static const String myBills = '/maintenance/my-bills';
   static const String approvals = '/approvals';
   static const String reports = '/reports';
   static const String notifications = '/notifications';
@@ -54,6 +64,16 @@ class AppRoutes {
           flatId: args?['flatId'] ?? '',
           flatNumber: args?['flatNumber'] ?? '',
         ));
+      case maintenanceSettings:
+        return _fade(const MaintenanceSettingsScreen());
+      case generateBills:
+        return _fade(const GenerateBillsScreen());
+      case collectionDashboard:
+        return _fade(const CollectionDashboardScreen());
+      case paymentEntry:
+        return _slide(const PaymentEntryScreen());
+      case myBills:
+        return _fade(const MyBillsScreen());
       case approvals:
         return _fade(const ApprovalsScreen());
       case reports:
