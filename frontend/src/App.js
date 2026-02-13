@@ -19,6 +19,11 @@ import Notifications from "@/pages/Notifications";
 import Members from "@/pages/Members";
 import FlatMembers from "@/pages/FlatMembers";
 import SocietySettings from "@/pages/SocietySettings";
+import MaintenanceSettings from "@/pages/MaintenanceSettings";
+import GenerateBills from "@/pages/GenerateBills";
+import CollectionDashboard from "@/pages/CollectionDashboard";
+import PaymentEntry from "@/pages/PaymentEntry";
+import MyBills from "@/pages/MyBills";
 import Layout from "@/components/Layout";
 
 function ProtectedRoute({ children }) {
@@ -53,6 +58,11 @@ function AppRoutes() {
       <Route path="/transactions/add" element={<SocietyRoute><AddTransaction /></SocietyRoute>} />
       <Route path="/maintenance" element={<SocietyRoute><Maintenance /></SocietyRoute>} />
       <Route path="/maintenance/ledger/:flatId" element={<SocietyRoute><FlatLedger /></SocietyRoute>} />
+      <Route path="/maintenance/settings" element={<SocietyRoute><MaintenanceSettings /></SocietyRoute>} />
+      <Route path="/maintenance/generate" element={<SocietyRoute><GenerateBills /></SocietyRoute>} />
+      <Route path="/maintenance/collection" element={<SocietyRoute><CollectionDashboard /></SocietyRoute>} />
+      <Route path="/maintenance/payment" element={<SocietyRoute><PaymentEntry /></SocietyRoute>} />
+      <Route path="/maintenance/my-bills" element={<SocietyRoute><MyBills /></SocietyRoute>} />
       <Route path="/approvals" element={<SocietyRoute><Approvals /></SocietyRoute>} />
       <Route path="/reports" element={<SocietyRoute><Reports /></SocietyRoute>} />
       <Route path="/notifications" element={<SocietyRoute><Notifications /></SocietyRoute>} />
