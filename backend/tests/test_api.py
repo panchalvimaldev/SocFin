@@ -518,9 +518,11 @@ class TestReports:
         response = manager_client.get(f"{BASE_URL}/api/societies/{sunrise['id']}/reports/monthly-summary?year=2026")
         assert response.status_code == 200
         data = response.json()
-        assert "total_inward" in data
-        assert "total_outward" in data
-        print(f"✓ Monthly summary retrieved")
+        assert isinstance(data, list)
+        assert len(data) > 0
+        assert "total_inward" in data[0]
+        assert "total_outward" in data[0]
+        print(f"✓ Monthly summary retrieved: {len(data)} months")
     
     def test_category_spending(self, manager_client):
         """Test category spending report"""
