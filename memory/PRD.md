@@ -99,3 +99,18 @@ Build a production-ready scalable society finance SaaS product supporting multip
 - [ ] Invoice/receipt file upload attached to transactions
 - [ ] Push notifications (Firebase integration - credentials required)
 - [ ] PDF/Excel report export verification
+
+### P2 (Later)
+- [ ] Advanced search across transactions
+- [ ] Bulk bill generation with variable amounts
+- [ ] Email notifications for dues
+- [ ] Audit trail / activity log
+- [ ] Multi-tenant whitelabeling
+- [ ] Mobile app deployment (iOS/Android stores)
+
+## Test Coverage
+- Backend: 28 API tests in `/app/backend/tests/test_api.py` - ALL PASSING
+- Test categories: Auth, Societies, Members, Flats, Transactions, Maintenance, Approvals, Reports, Notifications
+
+## MOCKED Integrations
+- **Firebase Push Notifications** - Placeholder credentials, requires real Firebase project keys for production
